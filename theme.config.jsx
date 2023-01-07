@@ -16,6 +16,7 @@ export default {
   darkMode: true,
   footer: (
     <div>
+      <hr />
       <a href="https://twitter.com/jaywhen6" target="_blank">Twitter</a>
       {" · "}
       <a href="https://github.com/jaywhen" target="_blank">Github</a>

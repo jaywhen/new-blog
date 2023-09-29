@@ -21,6 +21,8 @@ export default {
       {" · "}
       <a href="https://github.com/jaywhen" target="_blank">Github</a>
       {" · "}
+      <a href="https://unsplash.com/@jaywhen" target="_blank">Unsplash</a>
+      {" · "}
       <a href="mailto:jaywhenx@gmail.com">jaywhenx@gmail.com</a>
       <small style={{ display: 'block', marginTop: '8rem' }}>
         <abbr

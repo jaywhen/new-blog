@@ -46,5 +46,5 @@ export default {
         `}</style>
       </small>
     </div>
-  )
+  ),
 }

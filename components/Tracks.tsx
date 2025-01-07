@@ -59,7 +59,7 @@ const Tracks: React.FC = () => {
               alt={item.track.album.name}
             />
 
-            <div className="flex flex-col w-[180px]">
+            <div className="flex flex-col sm:w-[180px] w-[140px]">
               <a
                 className="text-sm w-full truncate !no-underline !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
                 href={item.track.external_urls.spotify}
@@ -90,7 +90,7 @@ const Tracks: React.FC = () => {
             </div>
 
             <a
-              className="text-xs w-[170px] truncate !no-underline !ml-8 !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+              className="text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
               href={item.track.album.external_urls.spotify}
               target="_blank"
               rel="noreferrer"
@@ -99,7 +99,7 @@ const Tracks: React.FC = () => {
               {item.track.album.name}
             </a>
 
-            <span className="text-xs !ml-auto !m-0 text-gray-500">
+            <span className="text-xs !ml-auto !m-0 text-gray-500 hidden sm:inline">
               {transformTime(item.added_at)}
             </span>
           </li>

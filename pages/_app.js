@@ -9,7 +9,7 @@ export default function MyApp({ Component, pageProps }) {
         src="https://cloud.umami.is/script.js"
         data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
       ></Script>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }

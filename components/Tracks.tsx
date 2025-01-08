@@ -51,7 +51,7 @@ const Tracks: React.FC = () => {
         {tracks.map((item, index) => (
           <li
             key={`${item.track.name}-${index}`}
-            className="!my-0 flex items-center !p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+            className="!my-0 flex items-center !p-2 rounded-md hover:bg-gray-200 cursor-pointer"
           >
             <img
               className="rounded-md w-[40px] h-[40px] !mr-2 !m-0"
@@ -59,7 +59,7 @@ const Tracks: React.FC = () => {
               alt={item.track.album.name}
             />
 
-            <div className="flex flex-col sm:w-[180px] w-[140px]">
+            <div className="flex flex-col sm:w-[180px] w-[calc(100%-48px)]">
               <a
                 className="text-sm w-full truncate !no-underline !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
                 href={item.track.external_urls.spotify}
@@ -70,7 +70,7 @@ const Tracks: React.FC = () => {
                 {item.track.name}
               </a>
 
-              <div className="w-full flex items-center truncate">
+              <div className="w-full flex items-center">
                 <span className="text-xs !text-gray-500 truncate">
                   {item.track.artists.map((artist, idx) => (
                     <span key={artist.name}>
@@ -85,12 +85,25 @@ const Tracks: React.FC = () => {
                       {idx < item.track.artists.length - 1 && ", "}
                     </span>
                   ))}
+
+                  <span className="inline sm:hidden">
+                    <span> · </span>
+                    <a
+                      className="text-xs !no-underline sm:!ml-8 !text-gray-500 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+                      href={item.track.album.external_urls.spotify}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={item.track.album.name}
+                    >
+                      {item.track.album.name}
+                    </a>
+                  </span>
                 </span>
               </div>
             </div>
 
             <a
-              className="text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+              className="hidden sm:inline text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
               href={item.track.album.external_urls.spotify}
               target="_blank"
               rel="noreferrer"

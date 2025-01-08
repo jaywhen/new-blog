@@ -4,13 +4,15 @@ import { ITrack, ITrackList } from "@/types";
 import styles from "@/components/Tracks.module.css";
 import { transformTime } from "@/utils";
 import Bar from "@/components/Bar";
+import { useTheme } from "nextra-theme-blog";
 
 const Tracks: React.FC = () => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
-  const [limit, setLimit] = useState<number>(20);
+  const [limit] = useState<number>(20);
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   const fetchTracks = useCallback(async () => {
     if (loading || (tracks.length > 0 && tracks.length >= total)) return;
@@ -46,12 +48,20 @@ const Tracks: React.FC = () => {
   }, [fetchTracks]);
 
   return (
-    <div ref={containerRef} className={styles.wrapper} onScroll={handleScroll}>
+    <div
+      ref={containerRef}
+      className={`${styles.wrapper} ${
+        theme === "dark" ? "bg-[#181818]" : "bg-[#f9f9f9]"
+      }`}
+      onScroll={handleScroll}
+    >
       <ul className="!list-none !my-0 !p-2 flex flex-col">
         {tracks.map((item, index) => (
           <li
             key={`${item.track.name}-${index}`}
-            className="!my-0 flex items-center !p-2 rounded-md hover:bg-gray-200 cursor-pointer"
+            className={`!my-0 flex items-center !p-2 rounded-md ${
+              theme === "dark" ? "hover:bg-[#ffffff1a]" : "hover:bg-gray-200"
+            } cursor-pointer`}
           >
             <img
               className="rounded-md w-[40px] h-[40px] !mr-2 !m-0"
@@ -61,7 +71,9 @@ const Tracks: React.FC = () => {
 
             <div className="flex flex-col sm:w-[180px] w-[calc(100%-48px)]">
               <a
-                className="text-sm w-full truncate !no-underline !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+                className={`text-sm w-full truncate !no-underline ${
+                  theme === "dark" ? "!text-white" : "!text-gray-600"
+                }  hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                 href={item.track.external_urls.spotify}
                 target="_blank"
                 rel="noreferrer"
@@ -71,14 +83,22 @@ const Tracks: React.FC = () => {
               </a>
 
               <div className="w-full flex items-center">
-                <span className="text-xs !text-gray-500 truncate">
+                <span
+                  className={`text-xs ${
+                    theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+                  }  truncate`}
+                >
                   {item.track.artists.map((artist, idx) => (
                     <span key={artist.name}>
                       <a
                         href={artist.external_urls.spotify}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs !text-gray-500 !no-underline hover:!decoration-solid hover:!decoration-1 hover:!underline"
+                        className={`text-xs ${
+                          theme === "dark"
+                            ? "!text-[#b3b3b3]"
+                            : "!text-gray-500"
+                        } !no-underline hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                       >
                         {artist.name}
                       </a>
@@ -89,7 +109,9 @@ const Tracks: React.FC = () => {
                   <span className="inline sm:hidden">
                     <span> · </span>
                     <a
-                      className="text-xs !no-underline sm:!ml-8 !text-gray-500 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+                      className={`text-xs !no-underline sm:!ml-8 ${
+                        theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+                      } hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                       href={item.track.album.external_urls.spotify}
                       target="_blank"
                       rel="noreferrer"
@@ -103,7 +125,9 @@ const Tracks: React.FC = () => {
             </div>
 
             <a
-              className="hidden sm:inline text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto !text-gray-600 hover:!decoration-solid hover:!decoration-1 hover:!underline"
+              className={`hidden sm:inline text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto ${
+                theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+              } hover:!decoration-solid hover:!decoration-1 hover:!underline`}
               href={item.track.album.external_urls.spotify}
               target="_blank"
               rel="noreferrer"
@@ -112,7 +136,11 @@ const Tracks: React.FC = () => {
               {item.track.album.name}
             </a>
 
-            <span className="text-xs !ml-auto !m-0 text-gray-500 hidden sm:inline">
+            <span
+              className={`text-xs !ml-auto !m-0 ${
+                theme === "dark" ? "text-[#b3b3b3]" : "text-gray-500"
+              } hidden sm:inline`}
+            >
               {transformTime(item.added_at)}
             </span>
           </li>

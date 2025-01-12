@@ -1,5 +1,5 @@
-import Script from "next/script";
-import "../styles.css";
+import Script from 'next/script';
+import '../styles.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (

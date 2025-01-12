@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import axios from "axios";
-import { ITrack, ITrackList } from "@/types";
-import styles from "@/components/Tracks.module.css";
-import { transformTime } from "@/utils";
-import Bar from "@/components/Bar";
-import { useTheme } from "nextra-theme-blog";
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import axios from 'axios';
+import { ITrack, ITrackList } from '@/types';
+import styles from '@/components/Tracks.module.css';
+import { transformTime } from '@/utils';
+import Bar from '@/components/Bar';
+import { useTheme } from 'nextra-theme-blog';
+import Image from 'next/image';
 
 const Tracks: React.FC = () => {
   const [tracks, setTracks] = useState<ITrack[]>([]);
@@ -20,14 +21,14 @@ const Tracks: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.get<ITrackList>("/api/tracks", {
+      const response = await axios.get<ITrackList>('/api/tracks', {
         params: { limit, offset: tracks.length },
       });
 
       setTracks((prevTracks) => [...prevTracks, ...response.data.items]);
       setTotal(response.data.total);
     } catch (error) {
-      console.error("Error fetching tracks:", error);
+      console.error('Error fetching tracks:', error);
     } finally {
       setLoading(false);
     }
@@ -51,7 +52,7 @@ const Tracks: React.FC = () => {
     <div
       ref={containerRef}
       className={`${styles.wrapper} ${
-        theme === "dark" ? "bg-[#181818]" : "bg-[#f9f9f9]"
+        theme === 'dark' ? 'bg-[#181818]' : 'bg-[#f9f9f9]'
       }`}
       onScroll={handleScroll}
     >
@@ -60,19 +61,21 @@ const Tracks: React.FC = () => {
           <li
             key={`${item.track.name}-${index}`}
             className={`!my-0 flex items-center !p-2 rounded-md ${
-              theme === "dark" ? "hover:bg-[#ffffff1a]" : "hover:bg-gray-200"
+              theme === 'dark' ? 'hover:bg-[#ffffff1a]' : 'hover:bg-gray-200'
             } cursor-pointer`}
           >
-            <img
+            <Image
               className="rounded-md w-[40px] h-[40px] !mr-2 !m-0"
               src={item.track.album.images[0].url}
               alt={item.track.album.name}
+              width={40}
+              height={40}
             />
 
             <div className="flex flex-col sm:w-[180px] w-[calc(100%-48px)]">
               <a
                 className={`text-sm w-full truncate !no-underline ${
-                  theme === "dark" ? "!text-white" : "!text-gray-600"
+                  theme === 'dark' ? '!text-white' : '!text-gray-600'
                 }  hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                 href={item.track.external_urls.spotify}
                 target="_blank"
@@ -85,7 +88,7 @@ const Tracks: React.FC = () => {
               <div className="w-full flex items-center">
                 <span
                   className={`text-xs ${
-                    theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+                    theme === 'dark' ? '!text-[#b3b3b3]' : '!text-gray-500'
                   }  truncate`}
                 >
                   {item.track.artists.map((artist, idx) => (
@@ -95,14 +98,14 @@ const Tracks: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         className={`text-xs ${
-                          theme === "dark"
-                            ? "!text-[#b3b3b3]"
-                            : "!text-gray-500"
+                          theme === 'dark'
+                            ? '!text-[#b3b3b3]'
+                            : '!text-gray-500'
                         } !no-underline hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                       >
                         {artist.name}
                       </a>
-                      {idx < item.track.artists.length - 1 && ", "}
+                      {idx < item.track.artists.length - 1 && ', '}
                     </span>
                   ))}
 
@@ -110,7 +113,7 @@ const Tracks: React.FC = () => {
                     <span> · </span>
                     <a
                       className={`text-xs !no-underline sm:!ml-8 ${
-                        theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+                        theme === 'dark' ? '!text-[#b3b3b3]' : '!text-gray-500'
                       } hover:!decoration-solid hover:!decoration-1 hover:!underline`}
                       href={item.track.album.external_urls.spotify}
                       target="_blank"
@@ -126,7 +129,7 @@ const Tracks: React.FC = () => {
 
             <a
               className={`hidden sm:inline text-xs w-[100px] sm:w-[170px] truncate !no-underline sm:!ml-8 !ml-auto ${
-                theme === "dark" ? "!text-[#b3b3b3]" : "!text-gray-500"
+                theme === 'dark' ? '!text-[#b3b3b3]' : '!text-gray-500'
               } hover:!decoration-solid hover:!decoration-1 hover:!underline`}
               href={item.track.album.external_urls.spotify}
               target="_blank"
@@ -138,7 +141,7 @@ const Tracks: React.FC = () => {
 
             <span
               className={`text-xs !ml-auto !m-0 ${
-                theme === "dark" ? "text-[#b3b3b3]" : "text-gray-500"
+                theme === 'dark' ? 'text-[#b3b3b3]' : 'text-gray-500'
               } hidden sm:inline`}
             >
               {transformTime(item.added_at)}

@@ -1,8 +1,8 @@
-import { SPOTIFY_TRACKS, TOKEN_ENDPOINT } from "@/consts";
-import { ITrackList } from "@/types";
-import axios from "axios";
-import { NextApiRequest, NextApiResponse } from "next";
-import querystring from "querystring";
+import { SPOTIFY_TRACKS, TOKEN_ENDPOINT } from '@/consts';
+import { ITrackList } from '@/types';
+import axios from 'axios';
+import { NextApiRequest, NextApiResponse } from 'next';
+import querystring from 'querystring';
 
 const {
   SPOTIFY_CLIENT_ID: client_id,
@@ -10,7 +10,7 @@ const {
   SPOTIFY_REFRESH_TOKEN: refresh_token,
 } = process.env;
 
-const token = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+const token = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 
 let cachedAccessToken: string | null = null;
 let tokenExpirationTime = 0;
@@ -24,13 +24,13 @@ const getAccessToken = async () => {
   const res = await axios.post<{ access_token: string; expires_in: number }>(
     TOKEN_ENDPOINT,
     querystring.stringify({
-      grant_type: "refresh_token",
+      grant_type: 'refresh_token',
       refresh_token,
     }),
     {
       headers: {
         Authorization: `Basic ${token}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     }
   );
@@ -50,9 +50,9 @@ const getLikedSongs = async (
       Authorization: `Bearer ${accessToken}`,
     },
     params: {
-      market: "from_token",
+      market: 'from_token',
       fields:
-        "items(added_at,track(name,artists(name,external_urls),album(name,images(url),external_urls),duration_ms,external_urls)),limit,total",
+        'items(added_at,track(name,artists(name,external_urls),album(name,images(url),external_urls),duration_ms,external_urls)),limit,total',
       limit,
       offset,
     },
@@ -65,27 +65,27 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ message: "Method Not Allowed" });
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
   try {
     const accessToken = await getAccessToken();
 
-    const { limit = "20", offset = "0" } = req.query as {
+    const { limit = '20', offset = '0' } = req.query as {
       limit: string;
       offset: string;
     };
     const tracks = await getLikedSongs(accessToken, +limit, +offset);
 
     res.setHeader(
-      "Cache-Control",
-      "public, max-age=1800, stale-while-revalidate=30"
+      'Cache-Control',
+      'public, max-age=1800, stale-while-revalidate=30'
     );
 
     return res.status(200).json(tracks);
   } catch (error) {
-    console.error("Error fetching tracks:", error.message, error.stack);
-    return res.status(500).json({ message: "Internal Server Error" });
+    console.error('Error fetching tracks:', error.message, error.stack);
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 }

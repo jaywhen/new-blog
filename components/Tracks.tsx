@@ -52,7 +52,7 @@ const Tracks: React.FC = () => {
     <div
       ref={containerRef}
       className={`${styles.wrapper} ${
-        theme === 'dark' ? 'bg-[#181818]' : 'bg-[#f9f9f9]'
+        theme === 'dark' ? 'bg-[#181818]' : 'bg-[#f5f5f5]'
       }`}
       onScroll={handleScroll}
     >

@@ -11,14 +11,15 @@
 	},
 	"dependencies": {
 		"axios": "^1.7.9",
-		"next": "^13.1.1",
-		"nextra": "^2.0.3",
-		"nextra-theme-blog": "^2.0.3",
+		"next": "^14.2.3",
+		"nextra": "^3.3.1",
+		"nextra-theme-blog": "^3.3.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "22.10.2",
+		"@types/react": "19.0.7",
 		"autoprefixer": "^10.4.20",
 		"husky": "^8.0.3",
 		"postcss": "^8.4.49",

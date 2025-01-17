@@ -1,18 +1,5 @@
 /* eslint sort-keys: error */
 export default {
-  components: {
-    h1: ({ children }) => (
-      <h1 style={{
-        backgroundClip: 'text',
-        backgroundImage: 'linear-gradient(90deg,#7928CA,#FF0080);',
-        '-webkit-background-clip': 'text',
-        '-webkit-text-fill-color': 'transparent',
-      }}
-      >
-        {children}
-      </h1>
-    )
-  },
   darkMode: true,
   footer: (
     <div>

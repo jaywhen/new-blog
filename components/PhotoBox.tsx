@@ -51,8 +51,9 @@ const PhotoBox: React.FC = () => {
       />
 
       <div className="w-full h-full grid grid-cols-3 gap-2 items-center">
-        {gridImgInfos.map((img) => (
+        {gridImgInfos.map((img, index) => (
           <ImageZoom
+            key={index}
             className="w-full h-full object-contain m-0"
             src={img.src}
             alt={img.alt}

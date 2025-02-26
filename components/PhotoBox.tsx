@@ -7,6 +7,7 @@ import westlake from '@/public/about/hz.jpg';
 import nj00 from '@/public/about/nj-long.jpg';
 import nj01 from '@/public/about/nj.jpg';
 import sz from '@/public/about/sz.jpg';
+import ikea from '@/public/about/ikea.jpeg'
 
 const PhotoBox: React.FC = () => {
   const mainImg = {
@@ -43,6 +44,10 @@ const PhotoBox: React.FC = () => {
       src: cq,
       alt: 'Chongqing',
     },
+    {
+      src: ikea,
+      alt: 'IKEA clock wall'
+    }
   ];
 
   return (

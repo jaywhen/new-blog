@@ -10,7 +10,6 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@react-spring/web": "^9.7.5",
 		"axios": "^1.7.9",
 		"next": "^14.2.3",
 		"nextra": "^3.3.1",

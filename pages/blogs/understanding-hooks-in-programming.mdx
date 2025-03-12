@@ -1,0 +1,130 @@
+---
+title: Understanding Hooks in Programming
+date: 2025/3/12
+description: React hooks, Webpack compiler hooks, Vite hooks...
+tag: Programming
+---
+
+Hooks have become a fundamental concept in modern programming frameworks. From React's useState and useEffect to webpack's compiler hooks and Vite's plugin system, the term "hook" appears across the JavaScript ecosystem and beyond. But what exactly are hooks, and why have they become so essential to framework design?
+
+## What Are Hooks?
+In programming, a hook is a mechanism that allows you to "tap into" critical points in a program's execution flow to modify behavior or react to specific events. Essentially, hooks provide extension points where developers can insert custom code without modifying the core system.
+The most common definition, as widely accepted in [Stack Overflow](https://stackoverflow.com/questions/467557/what-is-meant-by-the-term-hook-in-programming), is:
+> [Essentially it's a place in code that allows you to tap in to a module to either provide different behavior or to react when something happens.](https://stackoverflow.com/a/467568)
+
+## Why Are They Called "Hooks"?
+<mark>The term "hook" is a metaphorical reference to physically hanging or attaching something.</mark> Just as you might use a fishing hook to catch fish at specific points in water, or a coat hook to hang clothing at designated spots, a programming hook lets you "hang" or "attach" custom code at predetermined points in a program's execution.
+This metaphor is particularly apt because hooks:
+  • Catch and intercept execution at specific points
+  • Allow you to attach your logic to an existing process
+  • Provide controlled entry points into otherwise encapsulated systems
+
+## Hooks Across Different Frameworks
+### React Hooks
+React introduced hooks in version 16.8, revolutionizing how developers write components.  that were previously only available to class components.
+```javascript
+function Counter() {
+  // Hook into React's state system
+  const [count, setCount] = useState(0);
+  
+  // Hook into React's lifecycle
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  }, [count]);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+### Webpack Compiler Hooks
+Webpack uses hooks extensively in its plugin system. Webpack exposes various compiler and compilation hooks that plugins can use to integrate with the build process.
+```javascript
+class MyPlugin {
+  apply(compiler) {
+    // Hook into the compilation process
+    compiler.hooks.emit.tapAsync('MyPlugin', (compilation, callback) => {
+      // Do something with the build files
+      console.log('Emitting files!');
+      callback();
+    });
+  }
+}
+```
+### Vite Hooks
+Vite's plugin system is also hook-based, allowing plugins to intercept and modify the build process at various stages.
+```javascript
+// A Vite plugin with hooks
+export default function myVitePlugin() {
+  return {
+    name: 'my-vite-plugin',
+
+    // Hook into the transform phase
+    transform(code, id) {
+      if (id.endsWith('.js')) {
+        return transformedCode;
+      }
+    },
+
+    // Hook into the build completion
+    closeBundle() {
+      console.log('Build complete!');
+    }
+  }
+}
+```
+## Why Hooks Matter in Framework Design
+Hooks have become a cornerstone of modern framework design for several compelling reasons:
+### 1. Extensibility Without Modification
+Hooks enable a "plugin architecture" where frameworks can be extended without modifying their core code. This adheres to the Open/Closed Principle - software entities should be open for extension but closed for modification.
+### 2. Inversion of Control
+Frameworks that offer hooks implement a form of Inversion of Control (IoC), where the framework calls your code rather than your code calling the framework. This gives the framework control over when and how your code executes.
+### 3. Composition Over Inheritance
+Hooks promote composition as a design pattern rather than inheritance. Instead of extending base classes, developers can compose behavior by attaching hooks at specific points. React's hooks explicitly enable this pattern, allowing reusable stateful logic without class hierarchies.
+## Implementing Hooks: Common Patterns
+When designing hook systems, several patterns have emerged:
+### The Observer Pattern
+Many hook implementations use variations of the Observer pattern, where hooks act as subjects that notify observers (your code) when specific events occur.
+```javascript
+class HookSystem {
+  constructor() {
+    this.hooks = {
+      beforeProcess: [],
+      afterProcess: []
+    };
+  }
+  
+  addHook(name, callback) {
+    if (this.hooks[name]) {
+      this.hooks[name].push(callback);
+    }
+  }
+  
+  executeHooks(name, ...args) {
+    if (this.hooks[name]) {
+      this.hooks[name].forEach(callback => callback(...args));
+    }
+  }
+  
+  process(data) {
+    this.executeHooks('beforeProcess', data);
+    // Core processing logic
+    const result = transform(data);
+    this.executeHooks('afterProcess', result);
+    return result;
+  }
+}
+```
+### The Middleware Pattern
+The middleware pattern, popular in frameworks like Express.js, can be considered a form of hooks where each middleware function hooks into the request-response cycle.
+```javascript
+function setupMiddleware(app) {
+  app.use((req, res, next) => {
+    // Hook into request processing
+    console.log('Request received');
+    next();
+  });
+}
+```

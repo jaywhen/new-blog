@@ -14,6 +14,7 @@ export default function Products() {
         'A chrome extension that helps you export your DeepSeek chat list',
       link: 'https://chromewebstore.google.com/detail/deepseek-share/kdjdffoakknocbeicphnagoaidjembfd',
       width: 180,
+      height: 26,
     },
     {
       icon: hcReader,
@@ -21,6 +22,7 @@ export default function Products() {
       description: 'Just another Hacker News clone',
       link: 'https://hackernews-plum.vercel.app',
       width: 40,
+      height: 40,
     },
   ];
 
@@ -41,7 +43,7 @@ export default function Products() {
           <Image
             className="m-0"
             width={card.width}
-            height={100}
+            height={card.height}
             src={card.icon}
             alt={card.title}
           />

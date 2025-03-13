@@ -18,7 +18,7 @@ export default {
         >
           CC BY-NC 4.0
         </abbr>{' '}
-        {new Date().getFullYear()} © Jaywhen Xiang.
+        {new Date().getFullYear()} © Vincent Xiang.
         <style jsx>{`
           a {
             float: right;

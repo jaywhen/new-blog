@@ -3,7 +3,7 @@ import hcReader from '@/public/about/hc-reader.png';
 import Image from 'next/image';
 import { useTheme } from 'nextra-theme-blog';
 
-export default function Products() {
+export default function Projects() {
   const { theme } = useTheme();
 
   const cards = [

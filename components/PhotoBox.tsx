@@ -79,7 +79,7 @@ const PhotoBox: React.FC<Props> = () => {
     const resizeObserver = new ResizeObserver(() => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        const columnCount = width < 640 ? 2 : 3;
+        const columnCount = width < 560 ? 2 : 3;
         const newColumns: ImageItem[][] = Array(columnCount)
           .fill([])
           .map(() => []);
@@ -103,7 +103,7 @@ const PhotoBox: React.FC<Props> = () => {
     }
 
     return () => resizeObserver.disconnect();
-  }, [gridImgs]);
+  }, []);
 
   return (
     <div className="w-full flex flex-col gap-4">
